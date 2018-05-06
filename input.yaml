@@ -1,0 +1,104 @@
+week-names:
+- "Week 1: lighter high reps"
+- "Week 2: heavier high reps"
+- "Week 3: reduced reps"
+- "Week 4: power"
+
+_rep-schemes:
+- &mainLegLift
+  - - reps: 5
+      rpe: 7
+    - reps: 5
+      rpe: 8
+      count: 4
+  - - reps: 3
+      rpe: 8
+    - reps: 5
+      rpe: 8
+      count: 4
+  - - reps: 2
+      rpe: 8
+    - reps: 3
+      rpe: 8
+      count: 4
+  - - reps: 1
+      rpe: 8
+    - reps: 3
+      rpe: 8
+      count: 4
+- &mainUpperLift
+  - - reps: 5
+      rpe: 7
+    - reps: 5
+      rpe: 8
+      count: 5
+  - - reps: 3
+      rpe: 8
+    - reps: 5
+      rpe: 8
+      count: 5
+  - - reps: 2
+      rpe: 8
+    - reps: 3
+      rpe: 8
+      count: 5
+  - - reps: 1
+      rpe: 8
+    - reps: 3
+      rpe: 8
+      count: 5
+- &assistance
+  - - reps: 8
+      rpe: 7
+    - reps: 8
+      rpe: 8
+      count: 3
+  - - reps: 8
+      rpe: 7
+    - reps: 8
+      rpe: 8
+      count: 3
+  - - reps: 3
+      rpe: 7
+    - reps: 5
+      rpe: 8
+      count: 4
+  - - reps: 3
+      rpe: 8
+    - reps: 4
+      rpe: 8
+      count: 4
+
+days:
+- name: Sunday
+  exercises:
+  - name: Belted squat
+    weeks: *mainLegLift
+  - name: Bench press
+    weeks: *mainUpperLift
+  - name: Barbell row
+    weeks: *assistance
+- name: Monday
+  exercises:
+  - name: Overhead press
+    weeks: *mainUpperLift
+  - name: Belted deadlift
+    weeks: *mainLegLift
+  - name: Close grip bench
+    weeks: *assistance
+- name: Wednesday
+  exercises:
+  - name: Belted squat
+    weeks: *mainLegLift
+  - name: Bench press
+    weeks: *mainUpperLift
+  - name: Rack pull
+    weeks: *assistance
+- name: Friday
+  exercises:
+  - name: Deadlift
+    weeks: *mainLegLift
+  - name: Bench press
+    weeks: *mainUpperLift
+  - name: Beltless squat
+    weeks: *assistance
