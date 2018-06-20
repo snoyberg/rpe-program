@@ -15,6 +15,6 @@ run = do
   let html = replaceExtension yaml "html"
       pdf = replaceExtension yaml "pdf"
   program <- liftIO $ decodeFileEither yaml >>= either throwIO pure
-  check program $ do
-    render html program
+  check program $ \program' -> do
+    render html program'
     proc "weasyprint" [html, pdf] runProcess_

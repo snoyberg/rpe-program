@@ -23,7 +23,9 @@ dependencies:
 - base >= 4.10 && < 10
 - file-embed
 - lucid
+- reflection
 - rio >= 0.1.1.0
+- tagged
 - yaml
 
 ghc-options:

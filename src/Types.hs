@@ -1,11 +1,13 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TypeFamilies #-}
 module Types where
 
 import RIO hiding (Set)
 import RIO.Process
 import Data.Yaml
+import VectorLenMatched
 
 -- | Command line arguments
 data Options = Options
@@ -25,35 +27,32 @@ instance HasLogFunc App where
 instance HasProcessContext App where
   processContextL = lens appProcessContext (\x y -> x { appProcessContext = y })
 
-data Program = Program
-  { programDays :: !(Vector Day)
-  , programWeekNames :: !(Vector Text)
+data Program weeks = Program
+  { programDays :: !(Vector (Day weeks))
+  , programWeekNames :: !(VectorLM weeks Text)
   }
-  deriving Show
-instance FromJSON Program where
+instance weeks ~ () => FromJSON (Program weeks) where
   parseJSON = withObject "Program" $ \o -> Program
     <$> o .: "days"
-    <*> o .: "week-names"
+    <*> (unknownKey <$> o .: "week-names")
 
-data Day = Day
+data Day weeks = Day
   { dayName :: !Text
-  , dayExercises :: !(Vector Exercise)
+  , dayExercises :: !(Vector (Exercise weeks))
   }
-  deriving Show
-instance FromJSON Day where
+instance weeks ~ () => FromJSON (Day weeks) where
   parseJSON = withObject "Day" $ \o -> Day
     <$> o .: "name"
     <*> o .: "exercises"
 
-data Exercise = Exercise
+data Exercise weeks = Exercise
   { exerciseName :: !Text
-  , exerciseWeeks :: !(Vector Sets)
+  , exerciseWeeks :: !(VectorLM weeks Sets)
   }
-  deriving Show
-instance FromJSON Exercise where
+instance weeks ~ () => FromJSON (Exercise weeks) where
   parseJSON = withObject "Exercise" $ \o -> Exercise
     <$> o .: "name"
-    <*> o .: "weeks"
+    <*> (unknownKey <$> o .: "weeks")
 
 newtype Sets = Sets { unSets :: Vector Set }
   deriving (Show, FromJSON)
